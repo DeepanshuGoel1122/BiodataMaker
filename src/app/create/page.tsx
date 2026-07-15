@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import FormBuilder from '@/components/biodata/FormBuilder';
 import TemplatePreview from '@/components/biodata/TemplatePreview';
-import { useBiodataStore } from '@/store/useBiodataStore';
+import { useBiodataStore, TemplateInfo } from '@/store/useBiodataStore';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { LayoutTemplate, Settings2, Loader2, Crown, CheckCircle2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
@@ -26,7 +26,7 @@ export default function CreateBiodataPage() {
   const [isMobilePreviewOpen, setIsMobilePreviewOpen] = useState(false);
   const [hasHydrated, setHasHydrated] = useState(false);
 
-  const fallbackTemplates = [
+  const fallbackTemplates: TemplateInfo[] = [
     { id: 'd86b8b0e-3c58-40da-9e45-8bc6dc970364', name: 'Classic', description: '', thumbnail_url: '', is_premium: false },
     { id: 'f1797c36-7c0b-4eb8-b992-cf1fa131f4a9', name: 'Royal', description: '', thumbnail_url: '', is_premium: true },
     { id: 'e28a9d47-8c1b-4fc9-b003-de2f6c8d1f2a', name: 'Elegant', description: '', thumbnail_url: '', is_premium: true },
