@@ -27,12 +27,12 @@ export default function CreateBiodataPage() {
   const [hasHydrated, setHasHydrated] = useState(false);
 
   const fallbackTemplates = [
-    { id: 'd86b8b0e-3c58-40da-9e45-8bc6dc970364', name: 'Classic', is_premium: false },
-    { id: 'f1797c36-7c0b-4eb8-b992-cf1fa131f4a9', name: 'Royal', is_premium: true },
-    { id: 'e28a9d47-8c1b-4fc9-b003-de2f6c8d1f2a', name: 'Elegant', is_premium: true },
-    { id: 'c39b0e58-9d2c-5fd0-c114-ef3f7d9e2f3b', name: 'Modern', is_premium: true },
-    { id: '3e62c147-9f7b-410a-8cc8-3162799c8fc4', name: 'Executive', is_premium: true },
-    { id: '7f2d59ac-bd56-4c4f-9e79-57388916d7a5', name: 'Minimalist', is_premium: true }
+    { id: 'd86b8b0e-3c58-40da-9e45-8bc6dc970364', name: 'Classic', description: '', thumbnail_url: '', is_premium: false },
+    { id: 'f1797c36-7c0b-4eb8-b992-cf1fa131f4a9', name: 'Royal', description: '', thumbnail_url: '', is_premium: true },
+    { id: 'e28a9d47-8c1b-4fc9-b003-de2f6c8d1f2a', name: 'Elegant', description: '', thumbnail_url: '', is_premium: true },
+    { id: 'c39b0e58-9d2c-5fd0-c114-ef3f7d9e2f3b', name: 'Modern', description: '', thumbnail_url: '', is_premium: true },
+    { id: '3e62c147-9f7b-410a-8cc8-3162799c8fc4', name: 'Executive', description: '', thumbnail_url: '', is_premium: true },
+    { id: '7f2d59ac-bd56-4c4f-9e79-57388916d7a5', name: 'Minimalist', description: '', thumbnail_url: '', is_premium: true }
   ];
 
   useEffect(() => {
