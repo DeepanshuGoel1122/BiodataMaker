@@ -280,7 +280,7 @@ export default function FormBuilder() {
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium text-slate-700">Field Type</label>
-              <Select value={newFieldType} onValueChange={(val: FieldType) => setNewFieldType(val)}>
+              <Select value={newFieldType} onValueChange={(val) => val && setNewFieldType(val as FieldType)}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
