@@ -152,3 +152,7 @@
     break-inside: avoid !important;
   }
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
