@@ -11,8 +11,6 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/co
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Switch } from '@/components/ui/switch';
 
-import { ErrorBoundary } from 'react-error-boundary';
-
 export default function CreateBiodataPage() {
   const { 
     selectedTemplateId, 
@@ -99,8 +97,7 @@ export default function CreateBiodataPage() {
   const currentTemplateName = availableTemplates.find(t => t.id === selectedTemplateId)?.name || 'Classic';
 
   return (
-    <ErrorBoundary fallbackRender={({ error }) => <div className="p-8 text-red-500 font-bold text-xl">CLIENT CRASH: {error.message}</div>}>
-      <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Header */}
       <header className="bg-white border-b border-slate-200 px-4 md:px-6 py-2 flex flex-col sm:flex-row sm:items-center justify-between sticky top-0 z-40 gap-2 sm:gap-0 shadow-sm">
         <div className="flex items-center justify-between w-full sm:w-auto">
@@ -207,6 +204,5 @@ export default function CreateBiodataPage() {
         </Sheet>
       </div>
     </div>
-    </ErrorBoundary>
   );
 }
