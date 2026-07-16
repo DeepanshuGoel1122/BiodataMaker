@@ -51,9 +51,10 @@ export default function LandingPage() {
       <main className="pt-32 pb-20 px-6 max-w-6xl mx-auto">
         <div className="flex flex-col items-center text-center space-y-8 max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.5 }}
+            className="animate-in fade-in duration-500"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-sm font-medium mb-6">
               <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
@@ -71,10 +72,10 @@ export default function LandingPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-4 animate-in fade-in duration-500 delay-200 fill-mode-both"
           >
             <Link 
               href="/create" 
@@ -91,10 +92,10 @@ export default function LandingPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ y: 0 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="pt-10 flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-500"
+            className="pt-10 flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-500 animate-in fade-in duration-700 delay-500 fill-mode-both"
           >
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-green-500" /> No signup required
@@ -122,7 +123,7 @@ export default function LandingPage() {
                   key={template.id}
                   whileHover={{ y: -10 }}
                   onClick={() => handleSelectTemplate(template.id)}
-                  className={`snap-center shrink-0 w-[280px] md:w-[320px] group relative ${template.bg} rounded-3xl p-4 shadow-sm border ${template.border} hover:shadow-xl transition-all cursor-pointer`}
+                  className={`snap-start shrink-0 w-[65vw] sm:w-[280px] md:w-[320px] group relative ${template.bg} rounded-3xl p-4 shadow-sm border ${template.border} hover:shadow-xl transition-all cursor-pointer`}
                 >
                   <div className="aspect-[3/4] bg-white/50 backdrop-blur-sm rounded-2xl mb-6 overflow-hidden flex items-center justify-center relative border border-black/5">
                     {/* Abstract Mockup visual based on template style */}

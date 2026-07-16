@@ -22,6 +22,7 @@ export default function FormBuilder() {
     addField,
     addSection,
     removeSection,
+    resetForm,
     imageUrl,
     setImageUrl,
     themeColor,
@@ -131,6 +132,15 @@ export default function FormBuilder() {
       </div>
 
       {/* Dynamic Sections */}
+      {sections.length === 0 && (
+        <div className="bg-white p-8 rounded-2xl text-center shadow-sm border border-slate-100 flex flex-col items-center justify-center space-y-4">
+          <p className="text-slate-500">You have removed all sections from your biodata.</p>
+          <Button onClick={resetForm} variant="outline" className="shadow-sm border-slate-300">
+            Restore Default Fields
+          </Button>
+        </div>
+      )}
+
       {sections.map((section) => (
         <div key={section.id} className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4 md:space-y-6 relative group/section">
           <div className="flex items-center gap-2 border-b pb-2 relative">
