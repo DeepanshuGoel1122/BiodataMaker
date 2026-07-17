@@ -10,6 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { ArrowDown, ArrowUp, Pencil, Trash, Plus, Upload, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import ReactCrop, { type Crop, centerCrop, makeAspectCrop } from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 
 export default function FormBuilder() {
   const { 
@@ -41,15 +43,64 @@ export default function FormBuilder() {
   const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
   const [newSectionTitle, setNewSectionTitle] = useState('');
 
+  // Image Crop states
+  const [imageToCrop, setImageToCrop] = useState<string | null>(null);
+  const [crop, setCrop] = useState<Crop>();
+  const [completedCrop, setCompletedCrop] = useState<Crop>();
+  const imageRef = useRef<HTMLImageElement>(null);
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageUrl(reader.result as string);
+        setImageToCrop(reader.result as string);
+        // Reset file input so same file can be uploaded again if needed
+        if (fileInputRef.current) fileInputRef.current.value = '';
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const { width, height } = e.currentTarget;
+    const crop = centerCrop(
+      makeAspectCrop({ unit: '%', width: 90 }, 1, width, height),
+      width,
+      height
+    );
+    setCrop(crop);
+  };
+
+  const handleSaveCrop = () => {
+    if (!imageRef.current || !completedCrop) return;
+    
+    const canvas = document.createElement('canvas');
+    const image = imageRef.current;
+    
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    
+    canvas.width = completedCrop.width * scaleX;
+    canvas.height = completedCrop.height * scaleY;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    ctx.drawImage(
+      image,
+      completedCrop.x * scaleX,
+      completedCrop.y * scaleY,
+      completedCrop.width * scaleX,
+      completedCrop.height * scaleY,
+      0,
+      0,
+      completedCrop.width * scaleX,
+      completedCrop.height * scaleY
+    );
+    
+    setImageUrl(canvas.toDataURL('image/jpeg', 0.95));
+    setImageToCrop(null);
   };
 
   const handleAddField = () => {
@@ -337,6 +388,38 @@ export default function FormBuilder() {
         </DialogContent>
       </Dialog>
 
+      {/* Image Cropping Modal */}
+      <Dialog open={!!imageToCrop} onOpenChange={(open) => { if (!open) setImageToCrop(null); }}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>Crop Profile Photo</DialogTitle>
+          </DialogHeader>
+          <div className="py-4 flex flex-col items-center justify-center bg-slate-50 rounded-lg overflow-hidden max-h-[60vh]">
+            {imageToCrop && (
+              <ReactCrop
+                crop={crop}
+                onChange={(_, percentCrop) => setCrop(percentCrop)}
+                onComplete={(c) => setCompletedCrop(c)}
+                aspect={1}
+                circularCrop
+              >
+                <img 
+                  ref={imageRef} 
+                  src={imageToCrop} 
+                  alt="Crop preview" 
+                  onLoad={onImageLoad}
+                  className="max-h-[50vh] object-contain"
+                />
+              </ReactCrop>
+            )}
+          </div>
+          <p className="text-xs text-center text-slate-500">Drag to adjust the square crop. This shape fits perfectly in the biodata templates.</p>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setImageToCrop(null)}>Cancel</Button>
+            <Button onClick={handleSaveCrop}>Save Photo</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

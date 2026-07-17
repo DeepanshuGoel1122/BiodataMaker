@@ -8,7 +8,7 @@ export default function ExecutivePremiumTemplate() {
     <div className="w-full h-full flex font-sans text-[var(--theme-text)] bg-white" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto' }}>
       
       {/* Left Sidebar */}
-      <div className="w-[35%] h-full shrink-0 flex flex-col p-8 relative z-10" style={{ backgroundColor: 'var(--theme-primary)' }}>
+      <div className="w-[35%] h-full shrink-0 flex flex-col p-8 relative z-10" >
         
         {/* Subtle geometric pattern overlay */}
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
