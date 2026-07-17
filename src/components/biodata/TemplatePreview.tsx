@@ -11,7 +11,8 @@ import ExecutivePremiumTemplate from '@/templates/ExecutivePremium';
 import MinimalistPremiumTemplate from '@/templates/MinimalistPremium';
 import { Button } from '@/components/ui/button';
 import { Download, ShieldCheck, Loader2, AlertCircle, XCircle } from 'lucide-react';
-import { useReactToPrint } from 'react-to-print';
+import * as htmlToImage from 'html-to-image';
+import jsPDF from 'jspdf';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabase';
@@ -103,16 +104,57 @@ export default function TemplatePreview({ isPreviewMode = true }: TemplatePrevie
     });
   };
 
-  const handlePrint = useReactToPrint({
-    contentRef: printRef,
-    documentTitle: 'Biodata',
-    pageStyle: `
-      @page { size: A4 portrait; margin: 0; }
-      @media print {
-        body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  const handlePrint = async () => {
+    if (!printRef.current) return;
+    
+    // We show a loading state on the button while generating
+    setIsPaying(true);
+    
+    try {
+      const element = printRef.current;
+      
+      const imgData = await htmlToImage.toJpeg(element, {
+        quality: 0.95,
+        backgroundColor: '#ffffff',
+        pixelRatio: 2
+      });
+      
+      // We need to measure the actual DOM element since we don't have a canvas object directly
+      const elWidth = element.offsetWidth;
+      const elHeight = element.offsetHeight;
+      
+      // A4 dimensions in mm: 210 x 297
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (elHeight * pdfWidth) / elWidth;
+      
+      let finalHeight = pdfHeight;
+      let finalWidth = pdfWidth;
+      
+      // If the content is somehow taller than an A4 page, scale it down to fit on ONE page!
+      if (pdfHeight > 297) {
+        const ratio = 297 / pdfHeight;
+        finalHeight = 297;
+        finalWidth = pdfWidth * ratio;
       }
-    `
-  });
+      
+      const xOffset = (pdfWidth - finalWidth) / 2;
+      
+      pdf.addImage(imgData, 'JPEG', xOffset, 0, finalWidth, finalHeight);
+      pdf.save(`Biodata_${normalizedName}.pdf`);
+      
+    } catch (err) {
+      console.error('PDF Generation Error:', err);
+      setPaymentError('Failed to generate PDF. Please try again.');
+    } finally {
+      setIsPaying(false);
+    }
+  };
 
   const executeDownload = async (paymentStatus: 'free' | 'premium', fingerprint: string) => {
     // Log the download to the database securely via API
@@ -291,16 +333,21 @@ export default function TemplatePreview({ isPreviewMode = true }: TemplatePrevie
           style={{ 
             transform: `scale(${previewScale})`,
             marginBottom: `-${1123 * (1 - previewScale)}px`,
-            '--theme-primary': THEMES[themeColor as ThemeColor]?.primary || THEMES.gold.primary,
-            '--theme-secondary': THEMES[themeColor as ThemeColor]?.secondary || THEMES.gold.secondary,
-            '--theme-accent': THEMES[themeColor as ThemeColor]?.accent || THEMES.gold.accent,
-            '--theme-bg': THEMES[themeColor as ThemeColor]?.background || THEMES.gold.background,
-            '--theme-text': THEMES[themeColor as ThemeColor]?.text || THEMES.gold.text,
-            '--theme-text-light': THEMES[themeColor as ThemeColor]?.textLight || THEMES.gold.textLight,
-            '--theme-border': THEMES[themeColor as ThemeColor]?.border || THEMES.gold.border,
           } as React.CSSProperties}
         >
-          <div ref={printRef} className={`w-[794px] min-h-[1123px] bg-[var(--theme-bg)] ${isSinglePage ? 'single-page-mode' : ''}`}>
+          <div 
+            ref={printRef} 
+            className={`w-[794px] min-h-[1123px] bg-[var(--theme-bg)] ${isSinglePage ? 'single-page-mode' : ''}`}
+            style={{
+              '--theme-primary': THEMES[themeColor as ThemeColor]?.primary || THEMES.gold.primary,
+              '--theme-secondary': THEMES[themeColor as ThemeColor]?.secondary || THEMES.gold.secondary,
+              '--theme-accent': THEMES[themeColor as ThemeColor]?.accent || THEMES.gold.accent,
+              '--theme-bg': THEMES[themeColor as ThemeColor]?.background || THEMES.gold.background,
+              '--theme-text': THEMES[themeColor as ThemeColor]?.text || THEMES.gold.text,
+              '--theme-text-light': THEMES[themeColor as ThemeColor]?.textLight || THEMES.gold.textLight,
+              '--theme-border': THEMES[themeColor as ThemeColor]?.border || THEMES.gold.border,
+            } as React.CSSProperties}
+          >
             <SelectedTemplate />
           </div>
 

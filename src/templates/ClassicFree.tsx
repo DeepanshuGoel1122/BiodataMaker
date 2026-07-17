@@ -5,7 +5,7 @@ export default function ClassicFreeTemplate() {
   const { sections, imageUrl } = useBiodataStore();
 
   return (
-    <div className="w-full bg-[var(--theme-bg)] p-8 font-serif text-[var(--theme-text)] shadow-xl border border-[var(--theme-border)]" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto' }}>
+    <div className="w-full bg-[var(--theme-bg)] p-8 font-serif text-[var(--theme-text)] border border-[var(--theme-border)]" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto' }}>
       <div className="text-center mb-8 border-b-2 border-[var(--theme-primary)] pb-6">
         <h1 className="text-4xl font-bold uppercase tracking-widest text-[var(--theme-primary)] mb-2">Biodata</h1>
         <p className="text-sm italic text-[var(--theme-text-light)]">Om Shree Ganeshaya Namah</p>

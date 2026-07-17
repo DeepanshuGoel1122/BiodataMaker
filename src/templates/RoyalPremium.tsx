@@ -6,7 +6,7 @@ export default function RoyalPremiumTemplate() {
   const { sections, imageUrl } = useBiodataStore();
 
   return (
-    <div className="w-full bg-[var(--theme-bg)] p-10 font-serif text-[var(--theme-text)] shadow-xl relative" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto' }}>
+    <div className="w-full bg-[var(--theme-bg)] p-8 font-serif text-[var(--theme-text)] relative" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto' }}>
       {/* Decorative border */}
       <div className="absolute inset-4 border-2 border-[var(--theme-primary)] pointer-events-none"></div>
       <div className="absolute inset-5 border border-[var(--theme-accent)] pointer-events-none opacity-50"></div>
@@ -24,7 +24,7 @@ export default function RoyalPremiumTemplate() {
         <p className="text-sm italic text-[var(--theme-text-light)] font-medium">|| Shree Ganeshay Namah ||</p>
       </div>
 
-      <div className="flex flex-col md:flex-row print:flex-row gap-12 relative z-10">
+      <div className="flex flex-col md:flex-row print:flex-row gap-8 relative z-10">
         {imageUrl && (
           <div className="w-[190px] shrink-0 text-center break-inside-avoid print-avoid-break">
             <div className="p-2 border-2 border-[var(--theme-primary)] bg-[var(--theme-secondary)]">
@@ -33,7 +33,7 @@ export default function RoyalPremiumTemplate() {
           </div>
         )}
 
-        <div className="flex-1 space-y-10">
+        <div className="flex-1 space-y-6">
           {sections.map(section => {
             const filledFields = section.fields.filter(f => f.value);
             if (filledFields.length === 0) return null;

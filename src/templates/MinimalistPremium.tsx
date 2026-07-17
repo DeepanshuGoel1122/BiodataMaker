@@ -5,18 +5,18 @@ export default function MinimalistPremiumTemplate() {
   const { sections, imageUrl } = useBiodataStore();
 
   return (
-    <div className="w-full h-full font-serif text-[var(--theme-text)] shadow-xl relative overflow-hidden bg-[var(--theme-bg)]" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto' }}>
+    <div className="w-full h-full font-serif text-[var(--theme-text)] relative bg-[var(--theme-bg)]" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto' }}>
       
       {/* Absolute top minimal border */}
       <div className="absolute top-0 left-0 w-full h-3 bg-[var(--theme-primary)]"></div>
 
-      <div className="p-16 flex flex-col h-full">
+      <div className="p-8 flex flex-col h-full">
         {/* Header Content */}
-        <div className="flex flex-col items-center mb-16 text-center">
+        <div className="flex flex-col items-center mb-6 text-center">
           {imageUrl && (
-            <div className="mb-8 relative group">
+            <div className="mb-4 relative group">
               <div className="absolute -inset-2 bg-gradient-to-r from-[var(--theme-primary)] to-[var(--theme-accent)] rounded-full blur opacity-20"></div>
-              <img src={imageUrl} alt="Profile" className="w-[180px] h-[180px] object-cover aspect-square rounded-full relative z-10 border border-[var(--theme-border)] shadow-sm grayscale hover:grayscale-0 transition-all duration-700" />
+              <img src={imageUrl} alt="Profile" className="w-[180px] h-[180px] object-cover aspect-square rounded-full relative z-10 border border-[var(--theme-border)] shadow-sm" />
             </div>
           )}
           
@@ -28,13 +28,13 @@ export default function MinimalistPremiumTemplate() {
         </div>
 
         {/* Dynamic Sections */}
-        <div className="flex-1 max-w-3xl mx-auto w-full space-y-12 print-avoid-break">
+        <div className="flex-1 max-w-3xl mx-auto w-full space-y-6 print-avoid-break">
           {sections.map(section => {
             const filledFields = section.fields.filter(f => f.value);
             if (filledFields.length === 0) return null;
             
             return (
-              <div key={section.id} className="space-y-6 print-avoid-break relative group">
+              <div key={section.id} className="space-y-4 print-avoid-break relative group">
                 <div className="flex items-center gap-4">
                   <h2 className="text-sm font-sans font-bold uppercase tracking-[0.2em] text-[var(--theme-primary)] whitespace-nowrap">
                     {section.title}

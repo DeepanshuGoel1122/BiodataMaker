@@ -5,13 +5,13 @@ export default function ElegantPremiumTemplate() {
   const { sections, imageUrl } = useBiodataStore();
 
   return (
-    <div className="w-full h-full p-10 font-serif text-[var(--theme-text)] shadow-xl relative overflow-hidden" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto', backgroundColor: 'var(--theme-bg)' }}>
+    <div className="w-full flex flex-col p-8 font-serif text-[var(--theme-text)] relative" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto', backgroundColor: 'var(--theme-bg)' }}>
       {/* Semi-transparent overlays for subtle watercolor effect */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] opacity-20 rounded-full blur-3xl pointer-events-none" style={{ backgroundColor: 'var(--theme-primary)' }}></div>
       <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] opacity-10 rounded-full blur-3xl pointer-events-none" style={{ backgroundColor: 'var(--theme-accent)' }}></div>
       
       {/* Thin elegant border around the page */}
-      <div className="border-[1.5px] border-dashed border-[var(--theme-primary)] p-8 h-[calc(100%-2rem)] relative z-10 bg-white/60 backdrop-blur-sm rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+      <div className="flex-1 border-[1.5px] border-dashed border-[var(--theme-primary)] p-6 relative z-10 bg-white/60 backdrop-blur-sm rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
         
         {/* Header Section */}
         <div className="flex flex-col items-center mb-10 pb-6 relative">
@@ -28,8 +28,8 @@ export default function ElegantPremiumTemplate() {
           <p className="text-sm font-medium tracking-widest text-[var(--theme-accent)] uppercase">|| Shree Ganeshay Namah ||</p>
         </div>
 
-        <div className="flex flex-col md:flex-row print:flex-row gap-10">
-          <div className="flex-1 space-y-10">
+        <div className="flex flex-col md:flex-row print:flex-row gap-8">
+          <div className="flex-1 space-y-6">
             {sections.map(section => {
               const filledFields = section.fields.filter(f => f.value);
               if (filledFields.length === 0) return null;
@@ -43,14 +43,14 @@ export default function ElegantPremiumTemplate() {
                   {/* Elegant decorative side line */}
                   <div className="absolute left-0 top-0 w-[3px] h-full" style={{ background: 'linear-gradient(to bottom, var(--theme-primary), var(--theme-accent))' }}></div>
                   
-                  <h2 className="text-xl font-bold uppercase tracking-widest text-[var(--theme-accent)] mb-5 flex items-center gap-2">
+                  <h2 className="text-xl font-bold uppercase tracking-widest text-[var(--theme-accent)] mb-4 flex items-center gap-2">
                     <span className="text-3xl font-serif text-[var(--theme-primary)] opacity-80 leading-none">{firstLetter}</span>
                     <span className="mt-1">{restOfTitle}</span>
                   </h2>
                   <div className="space-y-3 pl-2">
                     {filledFields.map(field => (
                       <div key={field.id} className="flex text-sm items-start">
-                        <span className="w-44 font-semibold text-[var(--theme-text)]">{field.label}</span>
+                        <span className="w-40 font-semibold text-[var(--theme-text)]">{field.label}</span>
                         <span className="px-2 text-[var(--theme-primary)] font-bold">:</span>
                         <span className="flex-1 text-[var(--theme-text-light)] leading-relaxed">{field.value}</span>
                       </div>
@@ -62,9 +62,9 @@ export default function ElegantPremiumTemplate() {
           </div>
 
           {imageUrl && (
-            <div className="w-[200px] shrink-0 text-center break-inside-avoid print-avoid-break pt-2">
+            <div className="w-[180px] shrink-0 text-center break-inside-avoid print-avoid-break pt-2">
               <div className="p-[3px] rounded-full shadow-[0_10px_25px_rgba(0,0,0,0.1)]" style={{ background: 'linear-gradient(135deg, var(--theme-primary), var(--theme-accent))' }}>
-                <img src={imageUrl} alt="Profile" className="w-[194px] h-[194px] object-cover aspect-square rounded-full border-[6px] border-white" />
+                <img src={imageUrl} alt="Profile" className="w-[174px] h-[174px] object-cover aspect-square rounded-full border-[6px] border-white" />
               </div>
             </div>
           )}

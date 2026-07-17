@@ -5,9 +5,9 @@ export default function ModernPremiumTemplate() {
   const { sections, imageUrl } = useBiodataStore();
 
   return (
-    <div className="w-full h-full p-0 font-sans text-[var(--theme-text)] shadow-xl relative overflow-hidden bg-white" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto' }}>
+    <div className="w-full h-full p-0 font-sans text-[var(--theme-text)] relative bg-white" style={{ width: '210mm', minHeight: '297mm', margin: '0 auto' }}>
       {/* Bold Geometric Header Background */}
-      <div className="absolute top-0 left-0 w-full h-64" style={{ background: 'linear-gradient(135deg, var(--theme-primary), var(--theme-accent))' }}>
+      <div className="absolute top-0 left-0 w-full h-48" style={{ background: 'linear-gradient(135deg, var(--theme-primary), var(--theme-accent))' }}>
         {/* Abstract shapes */}
         <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 800 300" preserveAspectRatio="none">
           <polygon points="0,300 800,0 800,300" fill="#ffffff" />
@@ -16,14 +16,14 @@ export default function ModernPremiumTemplate() {
       </div>
       
       {/* Main Content Container - overlapping the header */}
-      <div className="relative z-10 px-12 pt-12 pb-12 h-full flex flex-col">
+      <div className="relative z-10 px-8 pt-8 pb-8 h-full flex flex-col">
         
         {/* Header Content */}
-        <div className="flex flex-col md:flex-row items-center md:items-end gap-8 mb-12">
+        <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mb-8">
           {imageUrl && (
-            <div className="w-[180px] shrink-0 text-center break-inside-avoid print-avoid-break">
-              <div className="p-1.5 bg-white rounded-2xl shadow-xl transform -rotate-3">
-                <img src={imageUrl} alt="Profile" className="w-[168px] h-[168px] object-cover aspect-square rounded-xl" />
+            <div className="w-[160px] shrink-0 text-center break-inside-avoid print-avoid-break">
+              <div className="p-1.5 bg-white rounded-2xl transform -rotate-3">
+                <img src={imageUrl} alt="Profile" className="w-[150px] h-[150px] object-cover aspect-square rounded-xl" />
               </div>
             </div>
           )}
@@ -38,13 +38,13 @@ export default function ModernPremiumTemplate() {
         </div>
 
         {/* Dynamic Sections Grid */}
-        <div className="flex-1 grid grid-cols-1 gap-x-12 gap-y-8 print-avoid-break" style={{ gridAutoRows: 'min-content' }}>
+        <div className="flex-1 grid grid-cols-1 gap-x-10 gap-y-6 print-avoid-break" style={{ gridAutoRows: 'min-content' }}>
           {sections.map((section, index) => {
             const filledFields = section.fields.filter(f => f.value);
             if (filledFields.length === 0) return null;
             
             return (
-              <div key={section.id} className="space-y-4 print-avoid-break relative group pl-6">
+              <div key={section.id} className="space-y-3 print-avoid-break relative group pl-6">
                 {/* Modern vertical accent line */}
                 <div className="absolute left-0 top-1 w-1.5 h-[calc(100%-8px)] rounded-full" style={{ backgroundColor: 'var(--theme-primary)' }}></div>
                 
