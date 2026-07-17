@@ -157,6 +157,7 @@ export default function TemplatePreview({ isPreviewMode = true }: TemplatePrevie
   };
 
   const executeDownload = async (paymentStatus: 'free' | 'premium', fingerprint: string) => {
+    setIsPaying(true);
     // Log the download to the database securely via API
     try {
       await fetch('/api/biodatas', {
@@ -317,7 +318,7 @@ export default function TemplatePreview({ isPreviewMode = true }: TemplatePrevie
           Preview Mode
         </div>
         
-        <Button onClick={handleInitialDownloadClick} disabled={isPaying} className="bg-slate-900 hover:bg-slate-800 text-white shadow-md">
+        <Button onClick={handleInitialDownloadClick} disabled={isPaying} className="bg-slate-900 hover:bg-slate-800 text-white shadow-md cursor-pointer">
           {isPaying ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Download className="w-4 h-4 mr-2" />}
           {isPremium && !isAlreadyPaid ? 'Pay ₹49 & Download' : 'Download PDF'}
         </Button>
