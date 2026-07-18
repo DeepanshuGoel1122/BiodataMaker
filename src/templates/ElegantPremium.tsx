@@ -28,7 +28,7 @@ export default function ElegantPremiumTemplate() {
           <p className="text-sm font-medium tracking-widest text-[var(--theme-accent)] uppercase">|| Shree Ganeshay Namah ||</p>
         </div>
 
-        <div className="flex flex-col md:flex-row print:flex-row gap-8">
+        <div className="flex flex-row gap-8">
           <div className="flex-1 space-y-6">
             {sections.map(section => {
               const filledFields = section.fields.filter(f => f.value);

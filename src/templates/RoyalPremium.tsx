@@ -24,7 +24,7 @@ export default function RoyalPremiumTemplate() {
         <p className="text-sm italic text-[var(--theme-text-light)] font-medium">|| Shree Ganeshay Namah ||</p>
       </div>
 
-      <div className="flex flex-col md:flex-row print:flex-row gap-8 relative z-10">
+      <div className="flex flex-row gap-8 relative z-10">
         {imageUrl && (
           <div className="w-[190px] shrink-0 text-center break-inside-avoid print-avoid-break">
             <div className="p-2 border-2 border-[var(--theme-primary)] bg-[var(--theme-secondary)]">

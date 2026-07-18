@@ -11,7 +11,7 @@ export default function ClassicFreeTemplate() {
         <p className="text-sm italic text-[var(--theme-text-light)]">Om Shree Ganeshaya Namah</p>
       </div>
 
-      <div className="flex flex-col md:flex-row print:flex-row gap-8">
+      <div className="flex flex-row gap-8">
         <div className="flex-1 space-y-8">
           {sections.map(section => {
             const filledFields = section.fields.filter(f => f.value);

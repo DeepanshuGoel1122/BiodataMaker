@@ -64,11 +64,13 @@ export default function TemplatePreview({ isPreviewMode = true }: TemplatePrevie
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      // On mobile (less than 768px), scale down based on width so 794px fits inside with some padding
+      const padding = width < 768 ? 32 : 64;
+      const availableWidth = width - padding;
+      
       if (width < 768) {
-        setPreviewScale(width / 860);
+        setPreviewScale(availableWidth / 794);
       } else {
-        setPreviewScale(0.65);
+        setPreviewScale(Math.min(0.65, availableWidth / 794));
       }
     };
     handleResize();
@@ -325,20 +327,26 @@ export default function TemplatePreview({ isPreviewMode = true }: TemplatePrevie
       </div>
       
       <div 
-        className="flex-1 overflow-auto p-2 md:p-8 relative flex justify-center items-start"
+        className="flex-1 overflow-auto p-2 md:p-8 flex justify-center items-start"
         style={{ userSelect: 'none' }}
         onContextMenu={(e) => e.preventDefault()}
       >
         <div 
-          className="relative shadow-2xl transition-all duration-300 origin-top bg-white w-[794px] min-h-[1123px]"
+          className="shrink-0 relative"
           style={{ 
-            transform: `scale(${previewScale})`,
-            marginBottom: `-${1123 * (1 - previewScale)}px`,
-          } as React.CSSProperties}
+            width: `${794 * previewScale}px`,
+            height: `${1123 * previewScale}px`,
+          }}
         >
           <div 
-            ref={printRef} 
-            className={`w-[794px] min-h-[1123px] bg-[var(--theme-bg)] ${isSinglePage ? 'single-page-mode' : ''}`}
+            className="absolute top-0 left-0 shadow-2xl transition-all duration-300 origin-top-left bg-white w-[794px] min-h-[1123px]"
+            style={{ 
+              transform: `scale(${previewScale})`,
+            } as React.CSSProperties}
+          >
+            <div 
+              ref={printRef} 
+              className={`w-[794px] min-h-[1123px] bg-[var(--theme-bg)] ${isSinglePage ? 'single-page-mode' : ''}`}
             style={{
               '--theme-primary': THEMES[themeColor as ThemeColor]?.primary || THEMES.gold.primary,
               '--theme-secondary': THEMES[themeColor as ThemeColor]?.secondary || THEMES.gold.secondary,
@@ -368,6 +376,7 @@ export default function TemplatePreview({ isPreviewMode = true }: TemplatePrevie
               ))}
             </div>
           )}
+          </div>
         </div>
       </div>
 

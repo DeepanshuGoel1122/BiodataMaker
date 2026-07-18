@@ -42,7 +42,7 @@ export default function MinimalistPremiumTemplate() {
                   <div className="flex-1 h-px bg-[var(--theme-border)]/50"></div>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 px-2">
+                <div className="grid grid-cols-2 gap-x-8 gap-y-4 px-2">
                   {filledFields.map(field => (
                     <div key={field.id} className="flex flex-col text-sm group/field">
                       <span className="font-sans text-[9px] uppercase tracking-widest text-[var(--theme-text-light)] mb-1">{field.label}</span>

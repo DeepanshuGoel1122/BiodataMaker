@@ -19,7 +19,7 @@ export default function ModernPremiumTemplate() {
       <div className="relative z-10 px-8 pt-8 pb-8 h-full flex flex-col">
         
         {/* Header Content */}
-        <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mb-8">
+        <div className="flex flex-row items-end gap-6 mb-8">
           {imageUrl && (
             <div className="w-[160px] shrink-0 text-center break-inside-avoid print-avoid-break">
               <div className="p-1.5 bg-white rounded-2xl transform -rotate-3">
@@ -28,11 +28,11 @@ export default function ModernPremiumTemplate() {
             </div>
           )}
           
-          <div className="flex-1 text-center md:text-left text-white mt-4 md:mt-0">
+          <div className="flex-1 text-left text-white mt-0">
             <h1 className="text-6xl font-black uppercase tracking-tight mb-2 drop-shadow-md">
               Biodata
             </h1>
-            <div className="h-1 w-24 bg-white/50 rounded-full mb-3 md:mx-0 mx-auto"></div>
+            <div className="h-1 w-24 bg-white/50 rounded-full mb-3 mx-0"></div>
             <p className="text-sm font-semibold tracking-[0.2em] uppercase opacity-90">|| Shree Ganeshay Namah ||</p>
           </div>
         </div>
