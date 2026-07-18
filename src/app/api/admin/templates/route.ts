@@ -10,7 +10,11 @@ export async function POST(request: Request) {
     }
 
     const token = authHeader.split(' ')[1];
-    const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+    const adminPassword = process.env.ADMIN_PASSWORD;
+
+    if (!adminPassword) {
+      return NextResponse.json({ error: 'Server misconfiguration: Admin password missing' }, { status: 500 });
+    }
     
     if (token !== adminPassword) {
       return NextResponse.json({ error: 'Invalid admin credentials' }, { status: 401 });

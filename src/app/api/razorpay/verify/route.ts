@@ -16,7 +16,10 @@ export async function POST(req: Request) {
         await supabaseAdmin.from('payments').insert([{
           id: uuidv4(),
           template_id: templateId,
-          amount: amount || 49,
+          razorpay_order_id: razorpay_order_id || 'order_dummy',
+          razorpay_payment_id: razorpay_payment_id || 'pay_dummy',
+          status: 'paid',
+          amount: amount || 4900,
           created_at: new Date().toISOString()
         }]);
       }
@@ -40,7 +43,10 @@ export async function POST(req: Request) {
         const { error } = await supabaseAdmin.from('payments').insert([{
           id: uuidv4(),
           template_id: templateId,
-          amount: amount || 49,
+          razorpay_order_id: razorpay_order_id,
+          razorpay_payment_id: razorpay_payment_id,
+          status: 'paid',
+          amount: amount || 4900, // keep consistent with paise if that's how it's used
           created_at: new Date().toISOString()
         }]);
         
