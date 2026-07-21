@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 import { v4 as uuidv4 } from 'uuid';
 
-const razorpay = new Razorpay({
-  key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_dummy',
-  key_secret: process.env.RAZORPAY_KEY_SECRET || 'dummy_secret',
-});
-
 export async function POST(req: Request) {
   try {
+    const razorpay = new Razorpay({
+      key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_dummy',
+      key_secret: process.env.RAZORPAY_KEY_SECRET || 'dummy_secret',
+    });
+
     const body = await req.json();
     const amount = body.amount || 4900; // default 49 INR in paise
     const currency = 'INR';
@@ -36,10 +36,13 @@ export async function POST(req: Request) {
     const order = await razorpay.orders.create(options);
     
     return NextResponse.json({ order }, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating razorpay order:', error);
     return NextResponse.json(
-      { error: 'Failed to create order' },
+      { 
+        error: 'Failed to create order',
+        details: error?.error?.description || error?.message || 'Unknown error'
+      },
       { status: 500 }
     );
   }

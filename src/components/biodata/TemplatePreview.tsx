@@ -222,7 +222,10 @@ export default function TemplatePreview({ isPreviewMode = true }: TemplatePrevie
       });
       const orderData = await orderRes.json();
       
-      if (!orderData.order) throw new Error('Failed to create order');
+      if (!orderData.order) {
+        console.error('Order creation failed:', orderData);
+        throw new Error(orderData.details || orderData.error || 'Failed to create order');
+      }
 
       const currentFp = getCurrentFingerprint();
 
@@ -300,9 +303,9 @@ export default function TemplatePreview({ isPreviewMode = true }: TemplatePrevie
         setIsPaying(false);
       });
       paymentObject.open();
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      setPaymentError('Error starting payment');
+      setPaymentError(error?.message || 'Error starting payment');
     } finally {
       setIsPaying(false);
     }
